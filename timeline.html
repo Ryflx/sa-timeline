@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Architecture Case Timeline</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .timeline-header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .timeline-header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .solution-key {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 1px solid #e9ecef;
+        }
+
+        .solution-key h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .key-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .key-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .key-term {
+            background: #3498db;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            min-width: 60px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .key-definition {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #3498db, #2ecc71);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 55%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+            margin-right: 0;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e8e8e8;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-left-color: #fff;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 30px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-right-color: #fff;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .timeline-item:nth-child(1) .timeline-marker {
+            background: #e74c3c;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #e74c3c;
+        }
+
+        .timeline-item:nth-child(2) .timeline-marker {
+            background: #f39c12;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #f39c12;
+        }
+
+        .timeline-item:nth-child(3) .timeline-marker {
+            background: #3498db;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #3498db;
+        }
+
+        .timeline-item:nth-child(4) .timeline-marker {
+            background: #2ecc71;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #2ecc71;
+        }
+
+        .timeline-item:nth-child(5) .timeline-marker {
+            background: #9b59b6;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #9b59b6;
+        }
+
+        .timeline-item:nth-child(6) .timeline-marker {
+            background: #34495e;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 4px #34495e;
+        }
+
+        .phase-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .phase-description {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+
+        .phase-actors {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .actors-label {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .actors-list {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .solution-evolution {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .evolution-label {
+            font-weight: 600;
+            color: #856404;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .evolution-text {
+            color: #856404;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 70px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -15px;
+                border: 15px solid transparent;
+                border-right-color: #fff;
+                border-left-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <div class="timeline-header">
+            <h1>Enterprise Architecture Case Evolution</h1>
+            <p>How the SuccessFactors Integration Case Progressed Through EA Process</p>
+        </div>
+
+        <div class="solution-key">
+            <h3>Solution Components Key</h3>
+            <div class="key-items">
+                <div class="key-item">
+                    <span class="key-term">IAM</span>
+                    <span class="key-definition">DocuSign Intelligent Agreement Management (includes webforms)</span>
+                </div>
+                <div class="key-item">
+                    <span class="key-term">CLM</span>
+                    <span class="key-definition">Contract Lifecycle Management</span>
+                </div>
+                <div class="key-item">
+                    <span class="key-term">Maestro</span>
+                    <span class="key-definition">DocuSign's workflow engine in eSign (orchestrates ID verification, webforms, and signing)</span>
+                </div>
+                <div class="key-item">
+                    <span class="key-term">RBAC</span>
+                    <span class="key-definition">Role-Based Access Control</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="phase-title">Initial Activity (Pre-SA Involvement)</div>
+                    <div class="phase-description">
+                        Account Executive and Solutions Engineer conducted initial customer demo of 
+                        <span class="highlight">SuccessFactors integration</span> to generate onboarding documents. 
+                        Customer showed interest but identified gaps in the out-of-the-box solution.
+                    </div>
+                    <div class="phase-actors">
+                        <div class="actors-label">Key Actors:</div>
+                        <div class="actors-list">Account Executive (AE) • Solutions Engineer (SE) • Customer</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="phase-title">Case Raised to SA Team</div>
+                    <div class="phase-description">
+                        Customer feedback triggered escalation to Solution Architecture team. Initial assessment 
+                        considered <span class="highlight">eSign + IAM with Maestro</span> for logic-based document 
+                        generation from SuccessFactors with read/write capabilities.
+                    </div>
+                    <div class="phase-actors">
+                        <div class="actors-label">Key Actors:</div>
+                        <div class="actors-list">Solutions Engineer • SA Team Lead • Customer</div>
+                    </div>
+                    <div class="solution-evolution">
+                        <div class="evolution-label">Initial Solution Concept:</div>
+                        <div class="evolution-text">eSign + IAM + Maestro for basic integration</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="phase-title">My Involvement as Solution Architect</div>
+                    <div class="phase-description">
+                        Requested comprehensive customer details and pushed for more thorough documentation 
+                        from the customer's <span class="highlight">system integrator</span>. Applied enterprise 
+                        architecture principles to understand the broader context and requirements.
+                    </div>
+                    <div class="phase-actors">
+                        <div class="actors-label">Key Actors:</div>
+                        <div class="actors-list">Solution Architect (Me) • Customer • System Integrator • Internal Teams</div>
+                    </div>
+                    <div class="solution-evolution">
+                        <div class="evolution-label">EA Approach:</div>
+                        <div class="evolution-text">Comprehensive requirements gathering and stakeholder analysis</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="phase-title">Uncovering Further Requirements</div>
+                    <div class="phase-description">
+                        Deep-dive analysis revealed that <span class="highlight">IAM alone wouldn't suffice</span>. 
+                        Discovered need for broader Document Management System (DMS) capabilities including 
+                        Role-Based Access Control (RBAC), leading to <span class="highlight">IAM + CLM combination</span>.
+                    </div>
+                    <div class="phase-actors">
+                        <div class="actors-label">Key Actors:</div>
+                        <div class="actors-list">Solution Architect • Customer Stakeholders • System Integrator • Technical Teams</div>
+                    </div>
+                    <div class="solution-evolution">
+                        <div class="evolution-label">Final Solution Architecture:</div>
+                        <div class="evolution-text">IAM + CLM + Custom Middleware + Maestro Workflows + RBAC</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="phase-title">Customer Success: External MVP Design Meeting</div>
+                    <div class="phase-description">
+                        Held an external session with the <span class="highlight">System Integrator</span> to define 
+                        the solution design for the Netherlands <span class="highlight">MVP go-live</span>. 
+                        Focused specifically on ensuring the solution meets Netherlands-specific process needs, 
+                        intentionally excluding other country variations.
+                    </div>
+                    <div class="phase-actors">
+                        <div class="actors-label">Key Actors:</div>
+                        <div class="actors-list">Solution Architect (Me) • System Integrator (SI)</div>
+                    </div>
+                    <div class="solution-evolution">
+                        <div class="evolution-label">Customer Success Focus:</div>
+                        <div class="evolution-text">Country-specific MVP solution alignment for rapid delivery</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <div class="phase-title">Customer Success: Internal Effort Alignment Meeting</div>
+                    <div class="phase-description">
+                        Internal collaboration between <span class="highlight">SC, SA, PS, and EM</span> on 
+                        <strong>Monday 16th June</strong> to align on the <span class="highlight">MVP solution design</span> 
+                        and estimate required delivery hours. Ensured the architecture vision is grounded in executable effort.
+                    </div>
+                    <div class="phase-actors">
+                        <div class="actors-label">Key Actors:</div>
+                        <div class="actors-list">Solution Consultant • Solution Architect • Professional Services • Engagement Manager</div>
+                    </div>
+                    <div class="solution-evolution">
+                        <div class="evolution-label">Customer Success Focus:</div>
+                        <div class="evolution-text">Cross-functional estimation and planning for MVP execution</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
